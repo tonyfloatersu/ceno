@@ -5,10 +5,7 @@ use gkr_iop::{
     gkr::{GKRCircuit, GKRCircuitOutput, GKRCircuitWitness},
 };
 use multilinear_extensions::util::max_usable_threads;
-use rayon::{
-    iter::{IndexedParallelIterator, ParallelIterator},
-    slice::ParallelSlice,
-};
+use p3::maybe_rayon::prelude::*;
 
 use crate::{circuit_builder::CircuitBuilder, error::ZKVMError, witness::LkMultiplicity};
 

@@ -42,7 +42,7 @@ pub fn max_usable_threads() -> usize {
     } else {
         static MAX_USABLE_THREADS: std::sync::OnceLock<usize> = std::sync::OnceLock::new();
         *MAX_USABLE_THREADS.get_or_init(|| {
-            let n = rayon::current_num_threads();
+            let n = p3::maybe_rayon::prelude::current_num_threads();
             let threads = prev_power_of_two(n);
             if n != threads {
                 tracing::warn!(

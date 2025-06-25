@@ -12,7 +12,7 @@ use gkr_iop::{
 };
 use itertools::Itertools;
 use multilinear_extensions::{Expression, ToExpr, mle::PointAndEval, util::max_usable_threads};
-use p3_field::FieldAlgebra;
+use p3::field::FieldAlgebra;
 use rand::{Rng, rngs::OsRng};
 use transcript::{BasicTranscript, Transcript};
 

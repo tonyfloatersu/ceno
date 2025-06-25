@@ -5,13 +5,7 @@ use multilinear_extensions::{
     mle::{ArcMultilinearExtension, FieldType, IntoMLE, MultilinearExtension},
     util::ceil_log2,
 };
-use rayon::{
-    iter::{
-        IndexedParallelIterator, IntoParallelIterator, IntoParallelRefIterator,
-        IntoParallelRefMutIterator, ParallelIterator,
-    },
-    prelude::ParallelSliceMut,
-};
+use p3::maybe_rayon::prelude::*;
 use witness::next_pow2_instance_padding;
 
 use crate::scheme::constants::MIN_PAR_SIZE;

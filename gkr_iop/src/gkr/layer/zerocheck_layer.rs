@@ -10,10 +10,9 @@ use multilinear_extensions::{
     virtual_poly::{VPAuxInfo, build_eq_x_r_vec, eq_eval},
     virtual_polys::VirtualPolynomialsBuilder,
 };
-use p3_field::dot_product;
-use rayon::{
-    iter::{IndexedParallelIterator, IntoParallelRefIterator, ParallelIterator},
-    slice::ParallelSlice,
+use p3::{
+    field::dot_product,
+    maybe_rayon::{iter::repeat, prelude::*},
 };
 use sumcheck::{
     macros::{entered_span, exit_span},
@@ -345,13 +344,13 @@ fn prove_rotation<E: ExtensionField>(
                 ),
                 _ => unimplemented!("unimplemented rotation"),
             })
-            .chain(rayon::iter::once(rotation_selector(
+            .chain(repeat(rotation_selector(
                 &bh,
                 &eq,
                 rotation_cyclic_subgroup_size,
                 rotation_cyclic_group_log2,
                 wit.wits[0].evaluations().len(), // Take first mle just to retrieve total length
-            )))
+            )).take(1))
             .collect::<Vec<_>>();
         let selector = mles.pop().unwrap();
         (selector, mles)

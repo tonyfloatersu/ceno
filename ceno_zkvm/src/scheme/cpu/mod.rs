@@ -30,8 +30,8 @@ use multilinear_extensions::{
 use p3::{
     field::{FieldAlgebra, TwoAdicField},
     matrix::dense::RowMajorMatrix,
+    maybe_rayon::prelude::*,
 };
-use rayon::iter::{IntoParallelIterator, IntoParallelRefIterator, ParallelIterator};
 use std::{collections::BTreeMap, sync::Arc};
 use sumcheck::{
     macros::{entered_span, exit_span},

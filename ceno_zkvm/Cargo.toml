@@ -21,7 +21,6 @@ mpcs = { path = "../mpcs" }
 multilinear_extensions = { version = "0", path = "../multilinear_extensions" }
 p3.workspace = true
 rand_chacha.workspace = true
-rayon.workspace = true
 serde.workspace = true
 serde_json.workspace = true
 sumcheck.workspace = true

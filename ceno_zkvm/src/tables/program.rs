@@ -15,8 +15,7 @@ use ceno_emul::{
 use ff_ext::{ExtensionField, FieldInto, SmallField};
 use itertools::Itertools;
 use multilinear_extensions::{Expression, Fixed, ToExpr, WitIn};
-use p3::field::FieldAlgebra;
-use rayon::iter::{IndexedParallelIterator, ParallelIterator};
+use p3::{field::FieldAlgebra, maybe_rayon::prelude::*};
 use witness::{InstancePaddingStrategy, RowMajorMatrix};
 /// This structure establishes the order of the fields in instruction records, common to the program table and circuit fetches.
 #[derive(Clone, Debug)]

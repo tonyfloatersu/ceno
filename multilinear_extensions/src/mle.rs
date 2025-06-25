@@ -9,11 +9,11 @@ use crate::{
 use core::hash::Hash;
 use either::Either;
 use ff_ext::{ExtensionField, FromUniformBytes};
-use p3::field::{Field, FieldAlgebra};
-use rand::Rng;
-use rayon::iter::{
-    IndexedParallelIterator, IntoParallelRefIterator, IntoParallelRefMutIterator, ParallelIterator,
+use p3::{
+    field::{Field, FieldAlgebra},
+    maybe_rayon::prelude::*,
 };
+use rand::Rng;
 use serde::{Deserialize, Serialize, de::DeserializeOwned};
 use std::fmt::Debug;
 

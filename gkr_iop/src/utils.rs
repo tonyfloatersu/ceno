@@ -7,14 +7,7 @@ use multilinear_extensions::{
     virtual_poly::{build_eq_x_r_vec, eq_eval},
     wit_infer_by_expr,
 };
-use p3_field::FieldAlgebra;
-use rayon::{
-    iter::{
-        IndexedParallelIterator, IntoParallelIterator, IntoParallelRefIterator, ParallelExtend,
-        ParallelIterator,
-    },
-    slice::{ParallelSlice, ParallelSliceMut},
-};
+use p3::{field::FieldAlgebra, maybe_rayon::prelude::*};
 
 use crate::{
     evaluation::EvalExpression,
@@ -235,7 +228,7 @@ mod tests {
     use std::sync::Arc;
 
     use ff_ext::{FromUniformBytes, GoldilocksExt2};
-    use p3_goldilocks::Goldilocks;
+    use p3::goldilocks::Goldilocks;
 
     use super::*;
 

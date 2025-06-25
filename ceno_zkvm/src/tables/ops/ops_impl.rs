@@ -2,7 +2,7 @@
 
 use ff_ext::{ExtensionField, SmallField};
 use itertools::Itertools;
-use rayon::iter::{IndexedParallelIterator, ParallelIterator};
+use p3::maybe_rayon::prelude::*;
 use std::collections::HashMap;
 use witness::{InstancePaddingStrategy, RowMajorMatrix};
 

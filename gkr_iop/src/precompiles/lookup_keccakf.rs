@@ -5,14 +5,7 @@ use ff_ext::ExtensionField;
 use itertools::{Itertools, chain, iproduct, izip, zip_eq};
 use multilinear_extensions::{Expression, ToExpr, WitIn, mle::PointAndEval, util::ceil_log2};
 use ndarray::{ArrayView, Ix2, Ix3, s};
-use p3_field::FieldAlgebra;
-use rayon::{
-    iter::{
-        IndexedParallelIterator, IntoParallelIterator, IntoParallelRefIterator, ParallelExtend,
-        ParallelIterator,
-    },
-    slice::ParallelSliceMut,
-};
+use p3::{field::FieldAlgebra, maybe_rayon::prelude::*};
 use serde::{Deserialize, Serialize};
 use sumcheck::{
     macros::{entered_span, exit_span},

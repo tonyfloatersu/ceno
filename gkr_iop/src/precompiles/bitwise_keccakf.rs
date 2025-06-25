@@ -16,7 +16,7 @@ use multilinear_extensions::{
     mle::{MultilinearExtension, Point, PointAndEval},
     util::ceil_log2,
 };
-use p3_field::FieldAlgebra;
+use p3::field::FieldAlgebra;
 use sumcheck::{
     macros::{entered_span, exit_span},
     util::optimal_sumcheck_threads,
