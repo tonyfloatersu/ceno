@@ -48,7 +48,11 @@ pub trait Instruction<E: ExtensionField> {
         let lk_multiplicity = LkMultiplicity::default();
         let mut raw_witin =
             RowMajorMatrix::<E::BaseField>::new(steps.len(), num_witin, Self::padding_strategy());
-        let raw_witin_iter = raw_witin.par_batch_iter_mut(num_instance_per_batch);
+
+        let raw_witin_iter = {
+			let max_range = raw_witin.num_instances() * raw_witin.n_col();
+			raw_witin.inner.values[..max_range].par_chunks_mut(num_instance_per_batch * raw_witin.inner.width)
+		};
 
         raw_witin_iter
             .zip(steps.par_chunks(num_instance_per_batch))

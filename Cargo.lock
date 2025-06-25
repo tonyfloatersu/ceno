@@ -3643,7 +3643,6 @@ dependencies = [
  "multilinear_extensions",
  "p3",
  "rand",
- "rayon",
  "serde",
  "tracing",
 ]

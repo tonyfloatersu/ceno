@@ -2,12 +2,9 @@ use multilinear_extensions::mle::{IntoMLE, MultilinearExtension};
 use p3::{
     field::{Field, FieldAlgebra},
     matrix::Matrix,
+    maybe_rayon::prelude::*,
 };
 use rand::{Rng, distributions::Standard, prelude::Distribution};
-use rayon::{
-    iter::{IndexedParallelIterator, IntoParallelIterator, ParallelExtend, ParallelIterator},
-    slice::ParallelSliceMut,
-};
 use std::{
     ops::{Deref, DerefMut, Index},
     slice::{Chunks, ChunksMut},
@@ -37,7 +34,7 @@ pub enum InstancePaddingStrategy {
 
 #[derive(Clone)]
 pub struct RowMajorMatrix<T: Sized + Sync + Clone + Send + Copy> {
-    inner: p3::matrix::dense::RowMajorMatrix<T>,
+    pub inner: p3::matrix::dense::RowMajorMatrix<T>,
     // num_row is the real instance BEFORE padding
     num_rows: usize,
     is_padded: bool,
@@ -159,11 +156,6 @@ impl<T: Sized + Sync + Clone + Send + Copy + Default + FieldAlgebra> RowMajorMat
     pub fn iter_mut(&mut self) -> ChunksMut<T> {
         let max_range = self.num_instances() * self.n_col();
         self.inner.values[..max_range].chunks_mut(self.inner.width)
-    }
-
-    pub fn par_batch_iter_mut(&mut self, num_rows: usize) -> rayon::slice::ChunksMut<T> {
-        let max_range = self.num_instances() * self.n_col();
-        self.inner.values[..max_range].par_chunks_mut(num_rows * self.inner.width)
     }
 
     pub fn padding_by_strategy(&mut self) {
