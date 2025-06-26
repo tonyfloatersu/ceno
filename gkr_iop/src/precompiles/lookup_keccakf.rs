@@ -1144,7 +1144,7 @@ pub fn run_faster_keccakf<E: ExtensionField>(
 mod tests {
     use super::*;
     use ff_ext::GoldilocksExt2;
-    use rand::{Rng, SeedableRng};
+    use rand::{RngCore, SeedableRng};
 
     #[test]
     fn test_keccakf() {
@@ -1154,7 +1154,7 @@ mod tests {
         let num_instances = 8;
         let mut states: Vec<[u64; 25]> = Vec::with_capacity(num_instances);
         for _ in 0..num_instances {
-            states.push(std::array::from_fn(|_| rng.gen()));
+            states.push(std::array::from_fn(|_| rng.next_u64()));
         }
         // TODO enable check
         let _ = run_faster_keccakf(setup_gkr_circuit::<E>(), states, true, true);
@@ -1170,7 +1170,7 @@ mod tests {
         let num_instances = 5;
         let mut states: Vec<[u64; 25]> = Vec::with_capacity(num_instances);
         for _ in 0..num_instances {
-            states.push(std::array::from_fn(|_| rng.gen()));
+            states.push(std::array::from_fn(|_| rng.next_u64()));
         }
 
         // TODO enable check
