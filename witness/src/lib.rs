@@ -158,6 +158,18 @@ impl<T: Sized + Sync + Clone + Send + Copy + Default + FieldAlgebra> RowMajorMat
         self.inner.values[..max_range].chunks_mut(self.inner.width)
     }
 
+    #[cfg(feature = "parallel")]
+    pub fn batch_iter_mut(&mut self, num_rows: usize) -> rayon::slice::ChunksMut<T> {
+        let max_range = self.num_instances() * self.n_col();
+        self.inner.values[..max_range].par_chunks_mut(num_rows * self.inner.width)
+    }
+
+    #[cfg(not(feature = "parallel"))]
+    pub fn batch_iter_mut(&mut self, num_rows: usize) -> ChunksMut<T> {
+        let max_range = self.num_instances() * self.n_col();
+        self.inner.values[..max_range].chunks_mut(num_rows * self.inner.width)
+    }
+
     pub fn padding_by_strategy(&mut self) {
         let num_instances = self.num_instances();
         let start_index = self.num_instances() * self.n_col();

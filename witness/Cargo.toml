@@ -14,12 +14,16 @@ ff_ext = { path = "../ff_ext" }
 multilinear_extensions = { version = "0", path = "../multilinear_extensions" }
 p3.workspace = true
 rand.workspace = true
+rayon.workspace = true
 serde.workspace = true
 tracing.workspace = true
 
 [features]
+default = ["parallel"]
+
 nightly-features = [
   "p3/nightly-features",
   "ff_ext/nightly-features",
   "multilinear_extensions/nightly-features",
 ]
+parallel = ["p3/parallel"]
