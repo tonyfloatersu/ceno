@@ -34,7 +34,7 @@ pub enum InstancePaddingStrategy {
 
 #[derive(Clone)]
 pub struct RowMajorMatrix<T: Sized + Sync + Clone + Send + Copy> {
-    pub inner: p3::matrix::dense::RowMajorMatrix<T>,
+    inner: p3::matrix::dense::RowMajorMatrix<T>,
     // num_row is the real instance BEFORE padding
     num_rows: usize,
     is_padded: bool,
